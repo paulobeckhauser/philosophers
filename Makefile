@@ -6,7 +6,7 @@
 #    By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 13:26:57 by pabeckha          #+#    #+#              #
-#    Updated: 2024/04/27 13:31:42 by pabeckha         ###   ########.fr        #
+#    Updated: 2024/05/12 17:44:25 by pabeckha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,11 +58,13 @@ CC				:= cc
 RM				:= rm -f
 CFLAGS			:= -Wall -Wextra -Werror
 DEBUG			:= -g
-#SANITIZER 		:= -fsanitize=address -g
+# SANITIZER 		:= -fsanitize=address -g
 
 
 
-SHARED_SRCS			:= 	$(SRC_DIR)main.c
+SHARED_SRCS			:= 	$(SRC_DIR)main.c \
+						$(SRC_DIR)ft_atoi.c
+
 	
 
 #Source Files
@@ -84,39 +86,39 @@ all: 		${NAME}
 bonus: 		${NAME}_bonus
 
 $(OBJ_DIR)%.o: 	$(SRC_DIR)%.c
-					@echo $(YELLOW) "Compiling...\t" $< $(EOC)
+					@echo -e $(YELLOW) "Compiling...\t" $< $(EOC)
 					@mkdir -p $(@D)
 					@${CC} ${CFLAGS} ${DEBUG} $(SANITIZER) -c $? -o $@
 
 
 ${NAME}: 		${OBJ}
-					@echo $(GREEN) "Source files are compiled!\n" $(EOC)
-					@echo $(WHITE) "Building ${NAME} for" $(YELLOW) "Mandatory" $(WHITE) "..." $(EOC)
+					@echo -e  $(GREEN) "Source files are compiled!\n" $(EOC)
+					@echo -e  $(WHITE) "Building ${NAME} for" $(YELLOW) "Mandatory" $(WHITE) "..." $(EOC)
 					@${CC} ${CFLAGS} ${DEBUG} $(SANITIZER) $^ -o ${NAME}
-					@echo $(GREEN) "${NAME} Mandatory is created!\n" $(EOC) $(RESET_COLOR)
+					@echo -e  $(GREEN) "${NAME} Mandatory is created!\n" $(EOC) $(RESET_COLOR)
 
 
 ${NAME}_bonus:	${OBJ_BONUS}
-					@echo $(GREEN) "Source files are compiled!\n" $(EOC)
-					@echo $(WHITE) "Building ${NAME} for" $(YELLOW) "Bonus" $(WHITE)
+					@echo -e $(GREEN) "Source files are compiled!\n" $(EOC)
+					@echo -e $(WHITE) "Building ${NAME} for" $(YELLOW) "Bonus" $(WHITE)
 					@make -s -C ./libs/libft
 					@${CC} ${CFLAGS} {DEBUG} $^ -L./libs/libft -lft -o ${NAME}_bonus
-					@echo $(GREEN) "${NAME} Bonus is created!\n" $(EOC) $(RESET_COLOR)
+					@echo -e $(GREEN) "${NAME} Bonus is created!\n" $(EOC) $(RESET_COLOR)
 
 libft:
 				@make -C libs/libft
 
 
 clean:
-				@echo $(YELLOW) "Cleaning object files..." $(EOC)
+				@echo -e $(YELLOW) "Cleaning object files..." $(EOC)
 				@${RM} ${OBJ} ${OBJ_BONUS}
-				@echo $(RED) "Object files are cleaned!\n" $(EOC)
+				@echo -e $(RED) "Object files are cleaned!\n" $(EOC)
 
 fclean:			clean
-				@echo $(YELLOW) "Removing ${NAME}..." $(EOC)
+				@echo -e $(YELLOW) "Removing ${NAME}..." $(EOC)
 				@${RM} ${NAME} ${NAME}_bonus
 				@rm -rf ${OBJ_DIR}
-				@echo $(RED) "${NAME} is removed!\n" $(EOC)
+				@echo -e $(RED) "${NAME} is removed!\n" $(EOC)
 
 re:				fclean all
 
