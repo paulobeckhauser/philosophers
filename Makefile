@@ -6,7 +6,7 @@
 #    By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 13:26:57 by pabeckha          #+#    #+#              #
-#    Updated: 2024/05/12 17:44:25 by pabeckha         ###   ########.fr        #
+#    Updated: 2024/05/12 18:18:33 by pabeckha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,8 @@ DEBUG			:= -g
 
 
 SHARED_SRCS			:= 	$(SRC_DIR)main.c \
-						$(SRC_DIR)ft_atoi.c
+						$(SRC_DIR)ft_atoi.c \
+						$(SRC_DIR)init_vars.c
 
 	
 
