@@ -1,22 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/27 13:35:45 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/05/12 17:00:20 by pabeckha         ###   ########.fr       */
+/*   Created: 2024/05/12 16:57:28 by pabeckha          #+#    #+#             */
+/*   Updated: 2024/05/12 17:47:45 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <stdio.h>
+#include "../inc/philo.h"
 
-
-typedef struct s_info
+int	ft_atoi(const char *nptr)
 {
-    int nb_philo;
-    
-} t_info;
+	int	value_int;
+	int	i;
+	int	parity;
 
-int ft_atoi(const char *nptr);
+	value_int = 0;
+	i = 0;
+	parity = 0;
+	if (nptr[i] == '-')
+	{
+		parity = 1;
+		i++;
+	}
+	if (nptr[i] == '+')
+		i++;
+	if (nptr[i] >= '0' && nptr[i] <= '9')
+	{
+		while (nptr[i])
+		{
+			value_int = (value_int * 10) + (nptr[i] - '0');
+			i++;
+		}
+	}
+	if (parity == 1)
+		value_int = -value_int;
+	return (value_int);
+}
