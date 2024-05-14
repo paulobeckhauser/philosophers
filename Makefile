@@ -6,7 +6,7 @@
 #    By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 13:26:57 by pabeckha          #+#    #+#              #
-#    Updated: 2024/05/12 18:18:33 by pabeckha         ###   ########.fr        #
+#    Updated: 2024/05/14 10:35:29 by pabeckha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,39 +87,39 @@ all: 		${NAME}
 bonus: 		${NAME}_bonus
 
 $(OBJ_DIR)%.o: 	$(SRC_DIR)%.c
-					@echo -e $(YELLOW) "Compiling...\t" $< $(EOC)
+					@echo $(YELLOW) "Compiling...\t" $< $(EOC)
 					@mkdir -p $(@D)
 					@${CC} ${CFLAGS} ${DEBUG} $(SANITIZER) -c $? -o $@
 
 
 ${NAME}: 		${OBJ}
-					@echo -e  $(GREEN) "Source files are compiled!\n" $(EOC)
-					@echo -e  $(WHITE) "Building ${NAME} for" $(YELLOW) "Mandatory" $(WHITE) "..." $(EOC)
+					@echo  $(GREEN) "Source files are compiled!\n" $(EOC)
+					@echo  $(WHITE) "Building ${NAME} for" $(YELLOW) "Mandatory" $(WHITE) "..." $(EOC)
 					@${CC} ${CFLAGS} ${DEBUG} $(SANITIZER) $^ -o ${NAME}
-					@echo -e  $(GREEN) "${NAME} Mandatory is created!\n" $(EOC) $(RESET_COLOR)
+					@echo  $(GREEN) "${NAME} Mandatory is created!\n" $(EOC) $(RESET_COLOR)
 
 
 ${NAME}_bonus:	${OBJ_BONUS}
-					@echo -e $(GREEN) "Source files are compiled!\n" $(EOC)
-					@echo -e $(WHITE) "Building ${NAME} for" $(YELLOW) "Bonus" $(WHITE)
+					@echo $(GREEN) "Source files are compiled!\n" $(EOC)
+					@echo $(WHITE) "Building ${NAME} for" $(YELLOW) "Bonus" $(WHITE)
 					@make -s -C ./libs/libft
 					@${CC} ${CFLAGS} {DEBUG} $^ -L./libs/libft -lft -o ${NAME}_bonus
-					@echo -e $(GREEN) "${NAME} Bonus is created!\n" $(EOC) $(RESET_COLOR)
+					@echo $(GREEN) "${NAME} Bonus is created!\n" $(EOC) $(RESET_COLOR)
 
 libft:
 				@make -C libs/libft
 
 
 clean:
-				@echo -e $(YELLOW) "Cleaning object files..." $(EOC)
+				@echo $(YELLOW) "Cleaning object files..." $(EOC)
 				@${RM} ${OBJ} ${OBJ_BONUS}
-				@echo -e $(RED) "Object files are cleaned!\n" $(EOC)
+				@echo $(RED) "Object files are cleaned!\n" $(EOC)
 
 fclean:			clean
-				@echo -e $(YELLOW) "Removing ${NAME}..." $(EOC)
+				@echo $(YELLOW) "Removing ${NAME}..." $(EOC)
 				@${RM} ${NAME} ${NAME}_bonus
 				@rm -rf ${OBJ_DIR}
-				@echo -e $(RED) "${NAME} is removed!\n" $(EOC)
+				@echo $(RED) "${NAME} is removed!\n" $(EOC)
 
 re:				fclean all
 
