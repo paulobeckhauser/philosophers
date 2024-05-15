@@ -6,7 +6,7 @@
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 13:15:45 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/05/14 18:32:48 by pabeckha         ###   ########.fr       */
+/*   Updated: 2024/05/15 14:25:34 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,6 @@
 // pthread_mutex_unlock
 
 #include "../inc/philo.h"
-
-// void *myThread(void *vargp)
-// {
-//     printf("Printing Thread\n");
-//     (void)vargp;
-//     return (NULL);
-// }
 
 void *thread_func(void *arg)
 {
@@ -49,28 +42,32 @@ int main(int argc, char* argv[])
         if (argc == 6)
             data.nb_eat = ft_atoi(argv[5]);
         
-        // printf("%d\n", data.nb_philo);
+        data.philo = ft_malloc((data.nb_philo + 1) * sizeof(t_philo));
+        if (data.philo == NULL)
+        {
+            printf("Malloc failed to allocate memory\n");
+            return (1);
+        }
+        
         i = 0;
         while(i < data.nb_philo)
         {
-            pthread_create(&data.philo[i].thread, NULL, thread_func, NULL);
+            printf("here\n");
+            if (pthread_create(&data.philo[i].thread, NULL, thread_func, NULL) != 0)
+            {
+                ft_putstr_fd("Failed to create thread\n", 2);
+                return(1);
+            }
             i++;
-        }
-        // {
-        //     if (pthread_create(&data.philo[i].thread, NULL, thread_func, NULL) != 0)
-        //     {
-        //         ft_putstr_fd("Failed to create thread\n", 2);
-        //         return(1);
-        //     }
-        //     i++;
-        // }
-        
+        }        
         i = 0;
         while (i < data.nb_philo)
         {
             pthread_join(data.philo[i].thread, NULL);
             i++;
-        }        
+        }
+        
+        free(data.philo);
     }
     else if (argc <= 5)
         printf("Too few arguments, please include more!\n");

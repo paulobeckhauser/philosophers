@@ -6,7 +6,7 @@
 #    By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 13:26:57 by pabeckha          #+#    #+#              #
-#    Updated: 2024/05/14 18:15:59 by pabeckha         ###   ########.fr        #
+#    Updated: 2024/05/15 14:28:02 by pabeckha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,7 @@ DEBUG			:= -g
 SHARED_SRCS			:= 	$(SRC_DIR)main.c \
 						$(SRC_DIR)ft_atoi.c \
 						$(SRC_DIR)init_vars.c \
-						$(SRC_DIR)ft_putstr_fd.c \
+						$(SRC_DIR)philo_utils.c \
 
 	
 
