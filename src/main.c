@@ -6,7 +6,7 @@
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 13:15:45 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/05/12 18:27:55 by pabeckha         ###   ########.fr       */
+/*   Updated: 2024/05/15 14:25:34 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,38 +18,56 @@
 
 #include "../inc/philo.h"
 
-void *myThread(void *vargp)
+void *thread_func(void *arg)
 {
-    printf("Printing Thread\n");
-    (void)vargp;
+    printf("is thinking\n");
+    (void)arg;
     return (NULL);
 }
 
 
 int main(int argc, char* argv[])
 {
-    t_info structure;
-    pthread_t thread_id;
+    t_info data;
+    int i;
     
-    
-    init_vars(&structure);
+    i = 0;
+    init_vars(&data);
     if (argc == 5 || argc == 6)
     {
-        structure.nb_philo = ft_atoi(argv[1]);
-        structure.time_to_die = ft_atoi(argv[2]);
-        structure.time_to_eat = ft_atoi(argv[3]);
-        structure.time_to_sleep = ft_atoi(argv[4]);
+        data.nb_philo = ft_atoi(argv[1]);
+        data.time_die = ft_atoi(argv[2]);
+        data.time_eat = ft_atoi(argv[3]);
+        data.time_sleep = ft_atoi(argv[4]);
         if (argc == 6)
-            structure.nb_times_eat = ft_atoi(argv[5]);
+            data.nb_eat = ft_atoi(argv[5]);
         
+        data.philo = ft_malloc((data.nb_philo + 1) * sizeof(t_philo));
+        if (data.philo == NULL)
+        {
+            printf("Malloc failed to allocate memory\n");
+            return (1);
+        }
         
-        // int i;
-        // i =0; 
-        pthread_create(&thread_id, NULL, myThread, NULL);
-        pthread_join(thread_id, NULL);
+        i = 0;
+        while(i < data.nb_philo)
+        {
+            printf("here\n");
+            if (pthread_create(&data.philo[i].thread, NULL, thread_func, NULL) != 0)
+            {
+                ft_putstr_fd("Failed to create thread\n", 2);
+                return(1);
+            }
+            i++;
+        }        
+        i = 0;
+        while (i < data.nb_philo)
+        {
+            pthread_join(data.philo[i].thread, NULL);
+            i++;
+        }
         
-        printf("Number of philosophers: %d\n", structure.nb_philo);
-        
+        free(data.philo);
     }
     else if (argc <= 5)
         printf("Too few arguments, please include more!\n");

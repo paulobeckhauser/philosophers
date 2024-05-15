@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_vars.c                                        :+:      :+:    :+:   */
+/*   ft_usleep.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/12 18:16:43 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/05/14 18:00:28 by pabeckha         ###   ########.fr       */
+/*   Created: 2024/05/15 14:08:42 by pabeckha          #+#    #+#             */
+/*   Updated: 2024/05/15 14:09:22 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-void init_vars(t_info *structure)
+int ft_usleep(size_t milliseconds)
 {
-    structure->nb_philo = 0;
-    structure->time_die = 0;
-    structure->time_eat = 0;
-    structure->time_sleep = 0;
-    structure->nb_eat = 0;    
+    size_t start;
+
+    start = get_current_time();
+    
 }
