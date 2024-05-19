@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_vars.c                                        :+:      :+:    :+:   */
+/*   thread_structure.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/12 18:16:43 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/05/19 18:49:33 by pabeckha         ###   ########.fr       */
+/*   Created: 2024/05/19 19:17:52 by pabeckha          #+#    #+#             */
+/*   Updated: 2024/05/19 19:20:04 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-void init_vars(t_info *data)
+
+static void handle_thread_error(int status, t_opcode opcode)
 {
-    data->end_simulation = false;
-    data->philos = ft_malloc((data->nb_philo + 1) * sizeof(t_philo));
-    // data->philos = malloc((data->nb_philo + 1) * sizeof(t_philo));
+    if (status == 0)
+        return ;
     
-    
-    data->nb_philo = 0;
-    data->time_die = 0;
-    data->time_eat = 0;
-    data->time_sleep = 0;
-    data->nb_limit_meals = 0;    
+}
+
+
+void thread_handle(pthread_t *thread, void *(*foo)(void *), void *data, t_opcode opcode)
+{
+    if (opcode == CREATE)
+        handle_thread_error
 }
