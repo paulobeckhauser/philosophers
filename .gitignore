@@ -1,3 +1,10 @@
 philo
 obj/
 .vscode/
+threads.c
+a.out
+deadlock.c
+mutex.c
+starbucks.c
+synchronization.c
+thread_x_process.c

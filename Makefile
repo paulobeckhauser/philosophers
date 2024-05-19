@@ -6,7 +6,7 @@
 #    By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 13:26:57 by pabeckha          #+#    #+#              #
-#    Updated: 2024/05/15 14:28:02 by pabeckha         ###   ########.fr        #
+#    Updated: 2024/05/19 18:21:33 by pabeckha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,7 @@ OBJ_DIR			:= obj/
 CC				:= cc
 RM				:= rm -f
 CFLAGS			:= -Wall -Wextra -Werror
-DEBUG			:= -g
+# DEBUG			:= -g -fsanitize=thread
 # SANITIZER 		:= -fsanitize=address -g
 
 
@@ -65,7 +65,13 @@ DEBUG			:= -g
 SHARED_SRCS			:= 	$(SRC_DIR)main.c \
 						$(SRC_DIR)ft_atoi.c \
 						$(SRC_DIR)init_vars.c \
-						$(SRC_DIR)philo_utils.c \
+						$(SRC_DIR)parser.c \
+						$(SRC_DIR)ft_putstr_fd.c \
+						$(SRC_DIR)ft_malloc.c \
+						$(SRC_DIR)ft_error.c \
+						
+						
+
 
 	
 
