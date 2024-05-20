@@ -6,7 +6,7 @@
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 13:15:45 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/05/19 18:45:04 by pabeckha         ###   ########.fr       */
+/*   Updated: 2024/05/20 12:18:45 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,6 @@ int main(int argc, char* argv[])
         //     printf("Malloc failed to allocate memory\n");
         //     return (1);
         // }
-
-
-
-
 
         i = 0;
         while(i < data.nb_philo)
