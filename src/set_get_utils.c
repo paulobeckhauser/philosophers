@@ -6,7 +6,7 @@
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 16:08:08 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/05/20 16:14:29 by pabeckha         ###   ########.fr       */
+/*   Updated: 2024/05/21 09:52:09 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,13 @@ bool get_bool (t_mtx *mutex, bool *value)
 
 void set_long(t_mtx *mutex, long *dest, long value)
 {
-    mutex_handle(mutex, LOCK);
+    // mutex_handle(mutex, LOCK);
+    pthread_mutex_lock(mutex);
 
     *dest = value;
-
-    mutex_handle(mutex, UNLOCK);
+    
+    pthread_mutex_unlock(mutex);
+    // mutex_handle(mutex, UNLOCK);
     
 }
 

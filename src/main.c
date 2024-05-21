@@ -6,7 +6,7 @@
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 13:15:45 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/05/20 12:18:45 by pabeckha         ###   ########.fr       */
+/*   Updated: 2024/05/21 11:00:26 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,52 +40,48 @@ int main(int argc, char* argv[])
     int i;
 
     i = 0;
-    
-    if (argc == 5 || argc == 6)
-    {
-        parse_input(&data, argv);
-        init_vars(&data);
-    
-        // data.philos = ft_malloc((data.nb_philo + 1) * sizeof(t_philo));
-        // if (data.philos == NULL)
-        // {
-        //     printf("Malloc failed to allocate memory\n");
-        //     return (1);
-        // }
 
-        i = 0;
-        while(i < data.nb_philo)
-        {
-            // dataphilo.id = i + 1;
-            data.philos->id = i + 1;
-            // printf("here\n");
-            if (pthread_create(&data.philos[i].thread, NULL, thread_func, NULL) != 0)
-            {
-                ft_putstr_fd("Failed to create thread\n", 2);
-                return(1);
-            }
-            i++;
-        }        
-        i = 0;
-        while (i < data.nb_philo)
-        {
-            pthread_join(data.philos[i].thread, NULL);
-            i++;
-        }
+    if (argc < 5 || argc > 6)
+        return(printf("Wrong number of arguments!\n"), 1);
+    
+    /* validate input*/
+
+
+    if (check_input(&data, argc, argv) == false)
+        return (printf("Invalid input\n"), 1);
+
+    init_vars(&data);
+
+    dinner_start(&data);
+    
+
+    clean_vars(&data);
+    
+    
+
+    
+    // if (argc == 5 || argc == 6)
+    // {
+    //     parse_input(&data, argv);
         
-        free(data.philos);
-
-
-
-    }
-
-
-
-
-
-    else if (argc <= 5)
-        printf("Too few arguments, please include more!\n");
-    else
-        printf("Too much arguments, please correct!\n");
+    //     i = 0;
+    //     while(i < data.nb_philo)
+    //     {
+    //         data.philos->id = i + 1;
+    //         if (pthread_create(&data.philos[i].thread_id, NULL, thread_func, NULL) != 0)
+    //         {
+    //             ft_putstr_fd("Failed to create thread\n", 2);
+    //             return(1);
+    //         }
+    //         i++;
+    //     }        
+    //     i = 0;
+    //     while (i < data.nb_philo)
+    //     {
+    //         pthread_join(data.philos[i].thread_id, NULL);
+    //         i++;
+    //     }
+        
+    // }
     return (0);
 }
