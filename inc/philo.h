@@ -6,7 +6,7 @@
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 13:35:45 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/05/20 19:38:19 by pabeckha         ###   ########.fr       */
+/*   Updated: 2024/05/21 11:24:33 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <errno.h>
 #include <sys/time.h>
+# include <limits.h>
 
 
 
@@ -91,10 +92,10 @@ typedef struct s_philo
 	int			id;
 	int			meals_counter; // maybe change to long
 	bool		if_full;
-	int			last_meal_time; // time passed from last meal
+	long		last_meal_time; // time passed from last meal
 	t_fork 		*first_fork;
 	t_fork 		*second_fork;
-	pthread_t	thread; //a philo is a thread
+	pthread_t	thread_id; //a philo is a thread
 	t_mtx 		philo_mutex; // useful for races with the monitor
 	t_info 		*data;
 	// int			eating;
@@ -106,19 +107,26 @@ typedef struct s_philo
 
 typedef struct s_info
 {
-	int			nb_philo; //maybe long
-	int			time_die; //maybe long
-	int			time_eat; //maybe long
-	int			time_sleep; //maybe long
-	int			nb_limit_meals;  //maybe long [5] | FLAG if -1
-	int			start_simulation;  //maybe long
+	long			nb_philo; //maybe long
+	long			time_die; //maybe long
+	long			time_eat; //maybe long
+	long			time_sleep; //maybe long
+	long			nb_limit_meals;  //maybe long [5] | FLAG if -1
+	long			start_simulation;  //maybe long
 	bool		end_simulation;  //maybe long -> Triggers when a philo die or all philos are full
-	bool 		all_threads_ready; // synchro philos
-	t_mtx 		table_mutex; //avoid races while reading from data
-	t_mtx		write_mutex; 
-	
 	t_fork		*forks;
 	t_philo		*philos; //array
+	bool 		all_threads_ready; // synchro philos
+	
+	t_mtx 		table_mutex; //avoid races while reading from data
+	t_mtx		write_mutex;  //write state
+	
+	pthread_t monitor; //check for died philos
+
+	long threads_running_nb;
+	
+	
+	
 }				t_info;
 
 
@@ -142,3 +150,4 @@ void 			wait_all_threads(t_info *data);
 long gettime(t_time_code time_code);
 void ft_usleep(long usec, t_info *data);
 void write_status(t_philo_status status, t_philo *philo);
+void	clean_vars(t_info *data);

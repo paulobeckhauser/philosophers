@@ -6,7 +6,7 @@
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 18:16:43 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/05/20 19:40:01 by pabeckha         ###   ########.fr       */
+/*   Updated: 2024/05/21 10:56:05 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,9 @@ void init_vars(t_info *data)
     int i;
     
     i = 0;
-
-
-
     data->end_simulation = false;
     data->all_threads_ready = false;
+    data->threads_running_nb = 0;
     data->philos = ft_malloc((data->nb_philo + 1) * sizeof(t_philo));
     mutex_handle(&data->table_mutex, INIT);
     data->forks = ft_malloc((data->nb_philo + 1) * sizeof(t_fork));

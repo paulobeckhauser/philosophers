@@ -6,7 +6,7 @@
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 15:34:19 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/05/20 19:42:41 by pabeckha         ###   ########.fr       */
+/*   Updated: 2024/05/21 09:55:15 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,13 @@ eat routine:
 3) release the forks
 */
 
+static void thinking(t_philo *philo)
+{
+    write_status(THINKING, philo);
+    
+}
+
+
 static void eat(t_philo *philo)
 {
     // 1)
@@ -31,15 +38,16 @@ static void eat(t_philo *philo)
 
     // 2)
     set_long(&philo->philo_mutex, &philo->last_meal_time, gettime(MILLISECOND));
-    
     philo->meals_counter++;
-
     write_status(EATING, philo);
-
     ft_usleep(philo->data->time_eat, philo->data);
+    if (philo->data->nb_limit_meals > 0 
+        && philo->meals_counter == philo->data->nb_limit_meals)
+        set_bool(&philo->philo_mutex, &philo->if_full, true);
 
-
-    if (philo->data->nb_limit_meals > 0)
+    // 3)
+    mutex_handle(&philo->first_fork->fork, UNLOCK);
+    mutex_handle(&philo->second_fork->fork, UNLOCK);
     
     
 }
@@ -148,7 +156,7 @@ void dinner_start(t_info *data)
     {
         while (i < data->nb_philo)
         {
-            thread_handle(&data->philos[i].thread, dinner_simulation, &data->philos[i], CREATE);
+            thread_handle(&data->philos[i].thread_id, dinner_simulation, &data->philos[i], CREATE);
             i++;
         }
     }
@@ -162,10 +170,17 @@ void dinner_start(t_info *data)
 
     // Wait for everyone
 
+    // i = 0;
+    // while (i < data->nb_philo)
+    // {
+    //     thread_handle(data->philos[i].thread, NULL, NULL, JOIN);
+    //     i++;
+    // }
+
     i = 0;
     while (i < data->nb_philo)
     {
-        thread_handle(data->philos[i].thread, NULL, NULL, JOIN);
+        pthread_join(data->philos[i].thread_id, NULL);
         i++;
     }
 
