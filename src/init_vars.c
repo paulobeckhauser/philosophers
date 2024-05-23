@@ -6,7 +6,7 @@
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 18:16:43 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/05/23 11:24:28 by pabeckha         ###   ########.fr       */
+/*   Updated: 2024/05/23 13:26:18 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ bool	init_vars(int argc, char *argv[], t_info *data)
 	data->nb_food = 0;
 	if (argc == 6)
 		data->nb_food = ft_atoi(argv[5]);
-	
+	if (data->nb_philo <= 0 || data->time_die <= 0 || data->time_eat <= 0 || data->time_sleep <= 0)
+		return (printf("Args in incorrect format!\n"), false);
 	data->philo = malloc(sizeof(t_philo) * data->nb_philo);
 	if (!data->philo)
 		return (printf("Memory allocation fail!\n"), false);
