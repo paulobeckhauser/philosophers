@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_input.c                                      :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/21 11:01:10 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/05/21 11:26:06 by pabeckha         ###   ########.fr       */
+/*   Created: 2024/05/23 10:04:44 by pabeckha          #+#    #+#             */
+/*   Updated: 2024/05/23 10:05:56 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-bool check_input(t_info *data, int argc, char *argv[])
+
+int	ft_strcmp(const char *s1, const char *s2)
 {
-    data->nb_philo = ft_atoi(argv[1]);
-    if (data->nb_philo > 200)
-        return (false);
+	size_t	i;
 
-    data->time_die = ft_atoi(argv[2]);
-    data->time_eat = ft_atoi(argv[3]);
-    data->time_sleep = ft_atoi(argv[4]);
-
-    if (argc == 6)
-        data->nb_limit_meals = ft_atoi(argv[5]);
-    else
-        data->nb_limit_meals = INT_MAX;
-
-
-    if ( d)
-    
+	i = 0;
+	while ((s1[i] || s2[i]))
+	{
+		if (s1[i] != s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		else
+			i++;
+	}
+	return (0);
 }

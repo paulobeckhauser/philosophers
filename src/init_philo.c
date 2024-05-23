@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_usleep.c                                        :+:      :+:    :+:   */
+/*   init_philo.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/20 18:23:20 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/05/23 10:39:02 by pabeckha         ###   ########.fr       */
+/*   Created: 2024/05/23 11:16:22 by pabeckha          #+#    #+#             */
+/*   Updated: 2024/05/23 11:19:29 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-void ft_usleep(int time)
+void init_philo(t_info *data)
 {
-    struct timeval start;
-    struct timeval end;
-    int diff;
+    int i;
 
-    gettimeofday(&start, NULL);
-    while (1)
+    i = 0;
+    while(i < data->nb_philo)
     {
-        gettimeofday(&end, NULL);
-        diff = (end.tv_sec * 1000 + end.tv_usec / 1000) - (start.tv_sec * 1000 + start.tv_usec / 1000);
-        if (diff >= time)
-            break ;
-        usleep(100);
+        pthread_mutex_init(&data->philo[i].fork, NULL);
+        data->philo[i].id = i;
+        data->philo[i].last_meal = get_time(data->time);
+        if (data->nb_philo == i + 1)
+            data->philo[i].id_next = 0;
+        else
+            data->philo[i].id_next = i + 1;
+        data->philo[i].food = 0;
+        data->philo[i].data = data;
+        i++;
     }
 }

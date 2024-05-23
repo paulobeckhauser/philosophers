@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_malloc.c                                        :+:      :+:    :+:   */
+/*   ft_philo.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/19 18:18:42 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/05/19 18:49:07 by pabeckha         ###   ########.fr       */
+/*   Created: 2024/05/22 14:04:31 by pabeckha          #+#    #+#             */
+/*   Updated: 2024/05/23 10:10:22 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-void	*ft_malloc(size_t size)
+void *ft_philo(void *arg)
 {
-	void *ptr;
+    t_philo *philo;
 
-	ptr = malloc(size);
-	if (!ptr)
-		ft_error("Malloc failed to allocate memory\n");
-	return (ptr);
+    philo = (t_philo *)arg;
+    if (philo->id % 2 == 0)
+    {
+        write_status(philo, "is thinking");
+        ft_usleep(1);
+    }
+    simulation(philo);
+    return (NULL);
 }
