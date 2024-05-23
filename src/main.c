@@ -6,7 +6,7 @@
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 13:15:45 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/05/12 18:27:55 by pabeckha         ###   ########.fr       */
+/*   Updated: 2024/05/12 21:08:54 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,9 @@ int main(int argc, char* argv[])
         structure.time_to_sleep = ft_atoi(argv[4]);
         if (argc == 6)
             structure.nb_times_eat = ft_atoi(argv[5]);
-        
-        
-        // int i;
-        // i =0; 
+    
+
+    // CREATION OF THREAD
         pthread_create(&thread_id, NULL, myThread, NULL);
         pthread_join(thread_id, NULL);
         
