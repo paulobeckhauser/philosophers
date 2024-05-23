@@ -6,7 +6,7 @@
 #    By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 13:26:57 by pabeckha          #+#    #+#              #
-#    Updated: 2024/05/21 10:51:53 by pabeckha         ###   ########.fr        #
+#    Updated: 2024/05/23 11:35:56 by pabeckha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,19 +65,16 @@ CFLAGS			:= -Wall -Wextra -Werror
 SHARED_SRCS			:= 	$(SRC_DIR)main.c \
 						$(SRC_DIR)ft_atoi.c \
 						$(SRC_DIR)init_vars.c \
-						$(SRC_DIR)parser.c \
+						$(SRC_DIR)init_philo.c \
 						$(SRC_DIR)ft_putstr_fd.c \
-						$(SRC_DIR)ft_malloc.c \
-						$(SRC_DIR)ft_error.c \
-						$(SRC_DIR)mutex_structure.c \
-						$(SRC_DIR)thread_structure.c \
 						$(SRC_DIR)simulation.c \
-						$(SRC_DIR)set_get_utils.c \
 						$(SRC_DIR)get_time.c \
 						$(SRC_DIR)write_status.c \
 						$(SRC_DIR)ft_usleep.c \
-						$(SRC_DIR)synchronization.c \
-						$(SRC_DIR)clean_vars.c \
+						$(SRC_DIR)ft_philo.c \
+						$(SRC_DIR)ft_strcmp.c \
+						$(SRC_DIR)take_fork_and_eat.c \
+						$(SRC_DIR)compare_philo_id.c \
 						
 						
 
