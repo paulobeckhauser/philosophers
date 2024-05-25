@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_time.c                                         :+:      :+:    :+:   */
+/*   get_current_time.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/20 17:15:07 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/05/23 09:54:45 by pabeckha         ###   ########.fr       */
+/*   Created: 2024/05/25 13:34:47 by pabeckha          #+#    #+#             */
+/*   Updated: 2024/05/25 13:36:03 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-long get_time(struct timeval time)
+size_t get_current_time(void)
 {
-    struct timeval now;
-    int diff;
+    struct timeval time;
 
-    gettimeofday(&now, NULL);
-    diff = (now.tv_sec * 1000 + now.tv_usec / 1000) - (time.tv_sec * 1000 + time.tv_usec / 1000);
-    return (diff);
+    if (gettimeofday(&time, NULL) == -1)
+        write(2, "gettimeofday() error\n", 22);
+    return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }

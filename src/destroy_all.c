@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_philo.c                                       :+:      :+:    :+:   */
+/*   destroy_all.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/23 11:16:22 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/05/23 11:19:29 by pabeckha         ###   ########.fr       */
+/*   Created: 2024/05/25 15:58:48 by pabeckha          #+#    #+#             */
+/*   Updated: 2024/05/25 16:01:27 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-void init_philo(t_info *data)
+void destroy_all(char *str, t_program *program, pthread_mutex_t *forks)
 {
     int i;
 
     i = 0;
-    while(i < data->nb_philo)
+    if (str)
     {
-        pthread_mutex_init(&data->philo[i].fork, NULL);
-        data->philo[i].id = i;
-        data->philo[i].last_meal = get_time(data->time);
-        if (data->nb_philo == i + 1)
-            data->philo[i].id_next = 0;
-        else
-            data->philo[i].id_next = i + 1;
-        data->philo[i].food = 0;
-        data->philo[i].data = data;
+        write(2, str, ft_strlen(str));
+        write(2, "\n", 1);
+    }
+    pthread_mutex_destroy(&program->write_lock);
+    pthread_mutex_destroy(&program->meal_lock);
+    pthread_mutex_destroy(&program->dead_lock);
+    while (i < program->philos[0].num_of_philos)
+    {
+        pthread_mutex_destroy(&forks[i]);
         i++;
     }
 }

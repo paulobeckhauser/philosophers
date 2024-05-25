@@ -5,26 +5,20 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/20 18:23:20 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/05/23 10:39:02 by pabeckha         ###   ########.fr       */
+/*   Created: 2024/05/25 14:24:15 by pabeckha          #+#    #+#             */
+/*   Updated: 2024/05/25 14:25:24 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-void ft_usleep(int time)
+int ft_usleep(size_t milliseconds)
 {
-    struct timeval start;
-    struct timeval end;
-    int diff;
+    size_t start;
 
-    gettimeofday(&start, NULL);
-    while (1)
-    {
-        gettimeofday(&end, NULL);
-        diff = (end.tv_sec * 1000 + end.tv_usec / 1000) - (start.tv_sec * 1000 + start.tv_usec / 1000);
-        if (diff >= time)
-            break ;
-        usleep(100);
-    }
+    start = get_current_time();
+    
+    while ((get_current_time() - start) < milliseconds)
+        usleep(500);
+    return (0);
 }
