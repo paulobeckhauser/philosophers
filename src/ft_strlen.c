@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/23 10:04:44 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/05/23 10:05:56 by pabeckha         ###   ########.fr       */
+/*   Created: 2024/05/25 16:03:39 by pabeckha          #+#    #+#             */
+/*   Updated: 2024/05/25 16:03:54 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-
-int	ft_strcmp(const char *s1, const char *s2)
+size_t	ft_strlen(const char *s)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
-	while ((s1[i] || s2[i]))
+	while (s[i] != '\0')
 	{
-		if (s1[i] != s2[i])
-			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-		else
-			i++;
+		i++;
 	}
-	return (0);
+	return (i);
 }

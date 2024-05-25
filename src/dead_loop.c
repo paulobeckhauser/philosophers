@@ -1,27 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_philo.c                                         :+:      :+:    :+:   */
+/*   dead_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/22 14:04:31 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/05/23 10:10:22 by pabeckha         ###   ########.fr       */
+/*   Created: 2024/05/25 15:34:26 by pabeckha          #+#    #+#             */
+/*   Updated: 2024/05/25 15:37:11 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-void *ft_philo(void *arg)
+int dead_loop(t_philo *philo)
 {
-    t_philo *philo;
-
-    philo = (t_philo *)arg;
-    if (philo->id % 2 == 0)
-    {
-        write_status(philo, "is thinking");
-        ft_usleep(1);
-    }
-    simulation(philo);
-    return (NULL);
+    pthread_mutex_lock(philo->dead_lock);
+    if (*philo->dead == 1)
+        return (pthread_mutex_unlock(philo->dead_lock), 1);
+    pthread_mutex_unlock(philo->dead_lock);
+    return (0);
 }
