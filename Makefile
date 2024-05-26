@@ -54,7 +54,7 @@ SRC_DIR			:= src/
 OBJ_DIR			:= obj/
 
 # Compiler and Flags
-CC				:= cc
+CC				:= cc -fsanitize=address
 RM				:= rm -f
 CFLAGS			:= -Wall -Wextra -Werror
 

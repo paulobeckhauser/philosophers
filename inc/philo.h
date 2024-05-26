@@ -6,7 +6,7 @@
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 13:35:45 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/05/26 20:04:01 by pabeckha         ###   ########.fr       */
+/*   Updated: 2024/05/26 20:41:06 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,16 @@
 # ifndef PHILO_MAX
 #  define PHILO_MAX 200
 # endif
+
+
+# define GREEN "\e[38;5;84m"
+# define BLUE "\e[38;5;104m"
+# define ORANGE "\e[38;5;220m"
+# define YELLOW "\e[38;5;226m"
+# define PURPLE "\e[38;5;129m"
+# define RED "\e[38;5;196m"
+# define WHITE "\e[38;5;15m"
+# define LIGHT_BLUE "\e[38;5;117m"
 
 typedef pthread_mutex_t	t_mtx;
 typedef struct s_data	t_data;
@@ -60,7 +70,7 @@ typedef struct s_philo
 	long				last_meal_time;
 	t_fork				*first_fork;
 	t_fork				*second_fork;
-	pthread_t			thread_id;
+	pthread_t			thread;
 	t_data				*data;
 	t_mtx				philo_mutex;
 }						t_philo;

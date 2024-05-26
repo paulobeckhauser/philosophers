@@ -6,7 +6,7 @@
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 19:14:26 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/05/26 19:56:48 by pabeckha         ###   ########.fr       */
+/*   Updated: 2024/05/26 20:30:05 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ bool	data_init(t_data *data)
 
 	i = 0;
 	data->end_simulation = false;
-	data->all_threads_ready = false;
 	data->philos = malloc(data->philo_nb * sizeof(t_philo));
 	data->forks = malloc(data->philo_nb * sizeof(t_fork));
 	if (!data->philos || !data->forks)
