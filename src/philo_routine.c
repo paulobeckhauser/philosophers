@@ -5,64 +5,60 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/25 14:22:51 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/05/25 22:25:38 by pabeckha         ###   ########.fr       */
+/*   Created: 2024/05/26 19:26:00 by pabeckha          #+#    #+#             */
+/*   Updated: 2024/05/26 20:04:01 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-static void thinking(t_philo *philo)
+	// THINKING routine  
+void	thinking(t_philo *philo, bool pre_simulation)
 {
-    write_status("is thinking", philo, philo->id);
+	long	t_eat;
+	long	t_sleep;
+	long	t_think;
+
+	if (!pre_simulation)
+		write_status(THINKING, philo);
+	if (philo->data->philo_nb % 2 == 0)
+		return ;
+	t_eat = philo->data->time_to_eat;
+	t_sleep = philo->data->time_to_sleep;
+	t_think = (t_eat * 2) - t_sleep;
+	if (t_think < 0)
+		t_think = 0;
+	ft_usleep(t_think, philo->data);
 }
 
-static void sleeping(t_philo *philo)
+static	void	eat(t_philo *philo)
 {
-    write_status("is sleeping", philo, philo->id);
-    ft_usleep(philo->time_to_sleep);
+	pthread_mutex_lock(&philo->first_fork->fork);
+	write_status(TAKE_FIRST_FORK, philo);
+	pthread_mutex_lock(&philo->second_fork->fork);
+	write_status(TAKE_SECOND_FORK, philo);
+	set_long(&philo->philo_mutex, &philo->last_meal_time,
+		get_time(MILLISECOND));
+	philo->meal_counter++;
+	write_status(EATING, philo);
+	ft_usleep(philo->data->time_to_eat, philo->data);
+	if (philo->data->limit_meals > 0
+		&& philo->meal_counter == philo->data->limit_meals)
+		set_bool(&philo->philo_mutex, &philo->full, true);
+	pthread_mutex_unlock(&philo->first_fork->fork);
+	pthread_mutex_unlock(&philo->second_fork->fork);
 }
 
-static void eating(t_philo *philo)
+void	*philo_routine(t_philo *philo)
 {
-    pthread_mutex_lock(philo->r_fork);
-    write_status("has taken a fork", philo, philo->id);
-    if (philo->num_of_philos == 1)
-    {
-        ft_usleep(philo->time_to_die);
-        pthread_mutex_unlock(philo->r_fork);
-        return ;
-    }
-
-    pthread_mutex_lock(philo->l_fork);
-    write_status("has taken a fork", philo, philo->id);
-    philo->eating = 1;
-    write_status("is eating", philo, philo->id);
-    pthread_mutex_lock(philo->meal_lock);
-    philo->last_meal = get_current_time();
-    philo->meals_eaten++;
-    pthread_mutex_unlock(philo->meal_lock);
-    ft_usleep(philo->time_to_eat);
-    // pthread_mutex_lock(philo->meal_lock);
-    philo->eating = 0;    
-    // pthread_mutex_unlock(philo->meal_lock);
-    pthread_mutex_unlock(philo->l_fork);
-    pthread_mutex_unlock(philo->r_fork);
-}
-
-
-void *philo_routine(void *pointer)
-{
-    t_philo *philo;
-
-    philo = (t_philo *)pointer;
-    if (philo->id % 2 == 0)
-        ft_usleep(1);
-    while(!dead_loop(philo))
-    {
-        eating(philo);
-        sleeping(philo);
-        thinking(philo);
-    }
-    return (pointer);
+	while (!check_end_simulation(philo->data))
+	{
+		if (philo->full)
+			break ;
+		eat(philo);
+		write_status(SLEEPING, philo);
+		ft_usleep(philo->data->time_to_sleep, philo->data);
+		thinking(philo, false);
+	}
+	return (NULL);
 }

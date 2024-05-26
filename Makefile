@@ -6,7 +6,7 @@
 #    By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 13:26:57 by pabeckha          #+#    #+#              #
-#    Updated: 2024/05/25 22:23:53 by pabeckha         ###   ########.fr        #
+#    Updated: 2024/05/26 20:06:44 by pabeckha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,24 +57,31 @@ OBJ_DIR			:= obj/
 CC				:= cc
 RM				:= rm -f
 CFLAGS			:= -Wall -Wextra -Werror
-#DEBUG			:= -fsanitize=thread -g
-#SANITIZER 		:= -fsanitize=address -g
 
 
 
-SHARED_SRCS			:= 	$(SRC_DIR)main.c \
-						$(SRC_DIR)args_check.c \
-						$(SRC_DIR)ft_atoi.c \
-						$(SRC_DIR)init.c \
-						$(SRC_DIR)get_current_time.c \
-						$(SRC_DIR)threads.c \
-						$(SRC_DIR)philo_routine.c \
-						$(SRC_DIR)ft_usleep.c \
-						$(SRC_DIR)write_status.c \
-						$(SRC_DIR)dead_loop.c \
-						$(SRC_DIR)destroy_all.c \
-						$(SRC_DIR)ft_strlen.c \
+SHARED_SRCS			:= 	$(SRC_DIR)init_vars.c \
+						$(SRC_DIR)dinner.c \
+						$(SRC_DIR)ft_philo.c \
+						$(SRC_DIR)main.c \
 						$(SRC_DIR)monitor.c \
+						$(SRC_DIR)write_status.c \
+						$(SRC_DIR)assign_forks.c \
+						$(SRC_DIR)philo_routine.c \
+						$(SRC_DIR)ft_atol.c \
+						$(SRC_DIR)free_data.c \
+						$(SRC_DIR)ft_usleep.c \
+						$(SRC_DIR)ft_error.c \
+						$(SRC_DIR)ft_putstr_fd.c \
+						$(SRC_DIR)store_args.c \
+						$(SRC_DIR)validate_args.c \
+						$(SRC_DIR)get_time.c \
+						$(SRC_DIR)check_end_simulation.c \
+						$(SRC_DIR)get_state_mutex.c \
+						$(SRC_DIR)set_state_mutex.c \
+
+						
+		
 
 #Source Files
 SRCS			:= 	$(SHARED_SRCS)
@@ -97,7 +104,7 @@ bonus: 		${NAME}_bonus
 $(OBJ_DIR)%.o: 	$(SRC_DIR)%.c
 					@echo $(YELLOW) "Compiling...\t" $< $(EOC)
 					@mkdir -p $(@D)
-					${CC} ${CFLAGS} ${DEBUG} $(SANITIZER) -c $? -o $@
+					@${CC} ${CFLAGS} ${DEBUG} $(SANITIZER) -c $? -o $@
 
 
 ${NAME}: 		${OBJ}

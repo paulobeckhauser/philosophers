@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_usleep.c                                        :+:      :+:    :+:   */
+/*   assign_forks.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/26 19:34:46 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/05/26 20:04:01 by pabeckha         ###   ########.fr       */
+/*   Created: 2024/05/26 19:20:33 by pabeckha          #+#    #+#             */
+/*   Updated: 2024/05/26 19:56:56 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-void	ft_usleep(long msec, t_data *data)
+void	assign_forks(t_philo *philo, t_fork *forks, int philo_position)
 {
-	long	start_time;
-	long	elapsed_time;
+	int	philo_nb;
 
-	start_time = get_time(1);
-	elapsed_time = start_time;
-	while ((elapsed_time - start_time) < msec)
+	philo_nb = philo->data->philo_nb;
+	philo->first_fork = &forks[(philo_position + 1) % philo_nb];
+	philo->second_fork = &forks[philo_position];
+	if (philo->id % 2 == 0)
 	{
-		if (check_end_simulation(data))
-			break ;
-		if (msec - (elapsed_time - start_time) > 10)
-			usleep((msec - (elapsed_time - start_time)) * 500);
-		elapsed_time = get_time(1);
+		philo->first_fork = &forks[philo_position];
+		philo->second_fork = &forks[(philo_position + 1) % philo_nb];
 	}
 }

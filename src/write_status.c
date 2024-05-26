@@ -5,21 +5,31 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/25 14:29:24 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/05/25 14:31:00 by pabeckha         ###   ########.fr       */
+/*   Created: 2024/05/26 19:14:05 by pabeckha          #+#    #+#             */
+/*   Updated: 2024/05/26 20:04:01 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-void write_status(char *str, t_philo *philo, int id)
+void	write_status(t_philo_status status, t_philo *philo)
 {
-    size_t time;
+	long	elapsed;
 
-    pthread_mutex_lock(philo->write_lock);
-    time = get_current_time() - philo->start_time;
-
-    if (!dead_loop(philo))
-        printf("%zu %d %s\n", time, id, str);
-    pthread_mutex_unlock(philo->write_lock);
+	elapsed = get_time(MILLISECOND);
+	if (philo->full)
+		return ;
+	pthread_mutex_lock(&philo->data->write_mutex);
+	if ((!check_end_simulation(philo->data)) && (TAKE_FIRST_FORK == status
+			|| TAKE_SECOND_FORK == status))
+		printf("%ld  %d has taken a fork\n", elapsed, philo->id);
+	else if (EATING == status && !check_end_simulation(philo->data))
+		printf("%ld  %d is eating\n", elapsed, philo->id);
+	else if (SLEEPING == status && !check_end_simulation(philo->data))
+		printf("%ld  %d is sleeping\n", elapsed, philo->id);
+	else if (THINKING == status && !check_end_simulation(philo->data))
+		printf("%ld  %d is thinking\n", elapsed, philo->id);
+	else if (DIED == status && check_end_simulation(philo->data))
+		printf("%ld  %d is dead\n", elapsed, philo->id);
+	pthread_mutex_unlock(&philo->data->write_mutex);
 }
