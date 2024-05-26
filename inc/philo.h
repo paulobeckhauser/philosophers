@@ -6,7 +6,7 @@
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 13:35:45 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/05/26 20:41:06 by pabeckha         ###   ########.fr       */
+/*   Updated: 2024/05/26 21:06:47 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,12 @@
 #  define PHILO_MAX 200
 # endif
 
-
 # define GREEN "\e[38;5;84m"
 # define BLUE "\e[38;5;104m"
 # define ORANGE "\e[38;5;220m"
 # define YELLOW "\e[38;5;226m"
 # define PURPLE "\e[38;5;129m"
-# define RED "\e[38;5;196m"
+# define RED "\e[38;5;160m"
 # define WHITE "\e[38;5;15m"
 # define LIGHT_BLUE "\e[38;5;117m"
 
@@ -64,7 +63,6 @@ typedef struct s_fork
 typedef struct s_philo
 {
 	int					id;
-	bool				dead;
 	long				meal_counter;
 	bool				full;
 	long				last_meal_time;
@@ -82,11 +80,9 @@ typedef struct s_data
 	long				time_to_eat;
 	long				time_to_die;
 	long				limit_meals;
-	long				start_simulation;
 	bool				end_simulation;
 	t_fork				*forks;
 	t_philo				*philos;
-	bool				all_threads_ready;
 	t_mtx				data_mutex;
 	t_mtx				write_mutex;
 	pthread_t			monitor;
@@ -104,8 +100,6 @@ bool					get_bool(t_mtx *mutex, bool *value);
 void					set_long(t_mtx *mutex, long *dest, long value);
 long					get_long(t_mtx *mutex, long *value);
 bool					check_end_simulation(t_data *data);
-bool					all_threads_running(t_mtx *mutex, long *threads,
-							long philo_nb);
 void					*ft_philo(void *arg);
 void					write_status(t_philo_status status, t_philo *philo);
 void					*monitor_dinner(void *data);
