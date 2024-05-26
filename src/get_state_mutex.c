@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   get_state_mutex.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/25 16:03:39 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/05/25 16:03:54 by pabeckha         ###   ########.fr       */
+/*   Created: 2024/05/26 20:05:49 by pabeckha          #+#    #+#             */
+/*   Updated: 2024/05/26 20:07:26 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-size_t	ft_strlen(const char *s)
+bool	get_bool(t_mtx *mutex, bool *value)
 {
-	int	i;
+	bool	ret;
 
-	i = 0;
-	while (s[i] != '\0')
-	{
-		i++;
-	}
-	return (i);
+	pthread_mutex_lock(mutex);
+	ret = *value;
+	pthread_mutex_unlock(mutex);
+	return (ret);
+}
+
+long	get_long(t_mtx *mutex, long *value)
+{
+	long	ret;
+
+	pthread_mutex_lock(mutex);
+	ret = *value;
+	pthread_mutex_unlock(mutex);
+	return (ret);
 }

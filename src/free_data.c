@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_usleep.c                                        :+:      :+:    :+:   */
+/*   free_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/26 19:34:46 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/05/26 20:04:01 by pabeckha         ###   ########.fr       */
+/*   Created: 2024/05/26 19:31:12 by pabeckha          #+#    #+#             */
+/*   Updated: 2024/05/26 19:32:56 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-void	ft_usleep(long msec, t_data *data)
+void	free_data(t_data *data)
 {
-	long	start_time;
-	long	elapsed_time;
+	t_philo	*philo;
+	int		i;
 
-	start_time = get_time(1);
-	elapsed_time = start_time;
-	while ((elapsed_time - start_time) < msec)
+	i = 0;
+	while (i < data->philo_nb)
 	{
-		if (check_end_simulation(data))
-			break ;
-		if (msec - (elapsed_time - start_time) > 10)
-			usleep((msec - (elapsed_time - start_time)) * 500);
-		elapsed_time = get_time(1);
+		philo = data->philos + i;
+		pthread_mutex_destroy(&philo->philo_mutex);
+		i++;
 	}
+	pthread_mutex_destroy(&data->write_mutex);
+	pthread_mutex_destroy(&data->data_mutex);
+	free(data->philos);
+	free(data->forks);
 }

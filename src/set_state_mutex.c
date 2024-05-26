@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dead_loop.c                                        :+:      :+:    :+:   */
+/*   set_state_mutex.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/25 15:34:26 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/05/25 15:37:11 by pabeckha         ###   ########.fr       */
+/*   Created: 2024/05/26 20:05:18 by pabeckha          #+#    #+#             */
+/*   Updated: 2024/05/26 20:07:10 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-int dead_loop(t_philo *philo)
+void	set_bool(t_mtx *mutex, bool *dest, bool value)
 {
-    pthread_mutex_lock(philo->dead_lock);
-    if (*philo->dead == 1)
-        return (pthread_mutex_unlock(philo->dead_lock), 1);
-    pthread_mutex_unlock(philo->dead_lock);
-    return (0);
+	pthread_mutex_lock(mutex);
+	*dest = value;
+	pthread_mutex_unlock(mutex);
+}
+
+void	set_long(t_mtx *mutex, long *dest, long value)
+{
+	pthread_mutex_lock(mutex);
+	*dest = value;
+	pthread_mutex_unlock(mutex);
 }

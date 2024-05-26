@@ -5,80 +5,46 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/25 15:41:17 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/05/25 21:18:09 by pabeckha         ###   ########.fr       */
+/*   Created: 2024/05/26 19:14:16 by pabeckha          #+#    #+#             */
+/*   Updated: 2024/05/26 20:04:01 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-static int philosopher_dead(t_philo *philo, size_t time_to_die)
+static bool	philo_died(t_philo *philo)
 {
-    pthread_mutex_lock(philo->meal_lock);
-    if (get_current_time() - philo->last_meal >= time_to_die && philo->eating == 0)
-        return (pthread_mutex_unlock(philo->meal_lock), 1);
-    pthread_mutex_unlock(philo->meal_lock);
-    return (0);
+	long	elapsed;
+	long	time_to_die;
+
+	if (get_bool(&philo->philo_mutex, &philo->full))
+		return (false);
+	elapsed = get_time(MILLISECOND) - get_long(&philo->philo_mutex,
+			&philo->last_meal_time);
+	time_to_die = philo->data->time_to_die - 1;
+	if (elapsed > time_to_die)
+		return (true);
+	return (false);
 }
 
-static int check_if_dead(t_philo *philos)
+void	*monitor_dinner(void *data)
 {
-    int i;
-    
-    i = 0;
-    while (i < philos[0].num_of_philos)
-    {
-        if (philosopher_dead(&philos[i], philos[i].time_to_die))
-        {
-            write_status("died", &philos[i], philos[i].id);
-            pthread_mutex_lock(philos[0].dead_lock);
-            *philos->dead = 1;
-            pthread_mutex_unlock(philos[0].dead_lock);
-            return (1);
-        }
-        i++;
-    }
-    return (0);
-}
+	int		i;
+	t_data	*table;
 
-static int check_if_all_ate(t_philo *philos)
-{
-    int i;
-    int finished_eating;
-
-    i = 0;
-    finished_eating = 0;
-    if (philos[0].num_times_to_eat == -1)
-        return (0);
-    
-    while (i < philos[0].num_of_philos)
-    {
-        pthread_mutex_lock(philos[i].meal_lock);
-        if (philos[i].meals_eaten >= philos[i].num_times_to_eat)
-            finished_eating++;
-        pthread_mutex_unlock(philos[i].meal_lock);
-        i++;
-    }
-    if (finished_eating == philos[0].num_of_philos)
-    {
-        pthread_mutex_lock(philos[0].dead_lock);
-        *philos->dead = 1;
-        pthread_mutex_unlock(philos[0].dead_lock);
-        return (1);
-    }
-    return (0);
-}
-
-
-void *monitor(void *pointer)
-{
-    t_philo *philos;
-
-    philos = (t_philo *)pointer;
-    while (1)
-    {
-        if (check_if_dead(philos) == 1 || check_if_all_ate(philos) == 1)
-            break ;
-    }
-    return (pointer);
+	table = (t_data *)data;
+	while (!check_end_simulation(table))
+	{
+		i = 0;
+		while (i < table->philo_nb && !check_end_simulation(table))
+		{
+			if (philo_died(table->philos + i))
+			{
+				set_bool(&table->data_mutex, &table->end_simulation, true);
+				write_status(DIED, table->philos + i);
+			}
+			i++;
+		}
+	}
+	return (NULL);
 }
