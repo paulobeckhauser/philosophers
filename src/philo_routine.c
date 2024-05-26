@@ -6,7 +6,7 @@
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 19:26:00 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/05/26 20:04:01 by pabeckha         ###   ########.fr       */
+/*   Updated: 2024/05/26 20:33:02 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	thinking(t_philo *philo, bool pre_simulation)
 	ft_usleep(t_think, philo->data);
 }
 
-static	void	eat(t_philo *philo)
+static	void	eating(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->first_fork->fork);
 	write_status(TAKE_FIRST_FORK, philo);
@@ -55,7 +55,7 @@ void	*philo_routine(t_philo *philo)
 	{
 		if (philo->full)
 			break ;
-		eat(philo);
+		eating(philo);
 		write_status(SLEEPING, philo);
 		ft_usleep(philo->data->time_to_sleep, philo->data);
 		thinking(philo, false);
