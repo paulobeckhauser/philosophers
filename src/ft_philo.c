@@ -6,7 +6,7 @@
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 19:18:01 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/05/26 20:04:01 by pabeckha         ###   ########.fr       */
+/*   Updated: 2024/05/27 18:08:00 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ void	*ft_philo(void *arg)
 	if (philo->data->philo_nb == 1)
 		one_philo(philo);
 	if (philo->id % 2 == 0)
+	{
 		write_status(THINKING, philo);
+		ft_usleep(philo->data->time_to_eat / 2, philo->data);
+	}
 	philo_routine(philo);
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 19:14:26 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/05/26 20:30:05 by pabeckha         ###   ########.fr       */
+/*   Updated: 2024/05/26 21:06:43 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	philo_init(t_data *data)
 		philo->full = false;
 		philo->meal_counter = 0;
 		philo->data = data;
-		philo->dead = false;
 		philo->last_meal_time = get_time(MILLISECOND);
 		pthread_mutex_init(&philo->philo_mutex, NULL);
 		assign_forks(philo, data->forks, i);
