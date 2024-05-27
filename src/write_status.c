@@ -6,7 +6,7 @@
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 19:14:05 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/05/26 21:07:00 by pabeckha         ###   ########.fr       */
+/*   Updated: 2024/05/27 17:39:51 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ void	write_status(t_philo_status status, t_philo *philo)
 {
 	long	elapsed;
 
-	elapsed = get_time(MILLISECOND);
 	if (philo->full)
 		return ;
 	pthread_mutex_lock(&philo->data->write_mutex);
+	elapsed = get_time(MILLISECOND);
 	if ((!check_end_simulation(philo->data)) && (TAKE_FIRST_FORK == status
 			|| TAKE_SECOND_FORK == status))
 		printf("%s%ld %d has taken a fork\n", GREEN, elapsed, philo->id);

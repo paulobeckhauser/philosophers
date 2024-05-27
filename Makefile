@@ -6,7 +6,7 @@
 #    By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 13:26:57 by pabeckha          #+#    #+#              #
-#    Updated: 2024/05/26 20:06:44 by pabeckha         ###   ########.fr        #
+#    Updated: 2024/05/27 17:55:24 by pabeckha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,7 @@ SRC_DIR			:= src/
 OBJ_DIR			:= obj/
 
 # Compiler and Flags
-CC				:= cc -fsanitize=address
+CC				:= cc
 RM				:= rm -f
 CFLAGS			:= -Wall -Wextra -Werror
 
